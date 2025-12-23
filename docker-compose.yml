@@ -1,0 +1,21 @@
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=sqs
+    volumes:
+      - "./localstack-init:/etc/localstack/init/ready.d"
+
+  rabbitmq:
+    image: rabbitmq:4.2.2-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+  # TODO: run app(s) within Docker container
